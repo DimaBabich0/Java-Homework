@@ -8,7 +8,7 @@ public class OnlineStore {
         users = new ArrayList<User>();
     }
 
-    public static  void addUser(User user) {
+    public static void addUser(User user) {
         users.add(user);
     }
 
@@ -24,5 +24,19 @@ public class OnlineStore {
             }
         }
         return total;
+    }
+    
+    public static void purchaseUserCarts(User user) {
+    	for (Cart cart : user.getCarts()) {
+            for (Product product : cart.getProducts()) {
+           	 product.purchase();
+            }
+        }
+   }
+    
+    public static void purchaseAll(Purchasable[] listProducts) {
+    	 for (Purchasable purchasable : listProducts) {
+			purchasable.purchase();
+		}
     }
 }

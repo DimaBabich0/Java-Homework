@@ -1,5 +1,5 @@
 
-public class Product {
+public abstract class Product implements Purchasable {
 	private String title;
 	private String brandName;
 	private float price;
@@ -52,5 +52,5 @@ public class Product {
         		brandName);
         super.finalize();
     }
-
+    
 }
