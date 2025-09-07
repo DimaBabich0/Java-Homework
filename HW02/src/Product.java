@@ -1,12 +1,22 @@
 
 public abstract class Product implements Purchasable {
+	private int id;
 	private String title;
 	private String brandName;
 	private float price;
 	
+	private static class IdGenerator {
+        private static int counter = 1;
+        public static int nextId() {
+            return counter++;
+        }
+    }
+	
 	//constructors
 	public Product(String title, String brandName, float price)
 	{
+		OnlineStore.addProduct(this);
+        this.id = IdGenerator.nextId();
 		this.title = title;
 		this.brandName = brandName;
 		this.price = price;
@@ -21,6 +31,7 @@ public abstract class Product implements Purchasable {
     }
 
 	//getters
+    public int getId() { return id; }
 	public String getTitle() { return title; }
     public String getBrandName() { return brandName; }
     public float getPrice() { return price; }
@@ -39,10 +50,11 @@ public abstract class Product implements Purchasable {
         } else {
             priceStr = String.format("%.2f", price); // for two decimal
         }
-        return String.format("%s (%s) - %s$",
+        return String.format("%s (%s) - %s$ [%d]\n",
         		title,
         		brandName,
-        		priceStr);
+        		priceStr,
+        		id);
     }
     
     @Override
