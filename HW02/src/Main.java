@@ -2,18 +2,24 @@
 public class Main {
 
 	public static void main(String[] args) {
-        PhysicalProduct p1 = new PhysicalProduct("Chocolate", "Roshen", 3.50f, 500f);
-        DigitalProduct p2 = new DigitalProduct("Windows 11 Activation Key", "Microsoft", 59.99f, "https://microsoft.com/key/m43mkgd4");
+		User user = new User("Alex", 101);
 
-        for (int i = 0; i < 4; i++) {
-        	try {
-                Product result = OnlineStore.findProductById(i);
-                System.out.printf("Found: %s", result);
-            } catch (ProductNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
-		}
+        Cart cart1 = new Cart("Electronics");
+        cart1.addProduct(new PhysicalProduct("ThinkPad X1", "Lenovo", 1299.99f, 1800f));
+        cart1.addProduct(new DigitalProduct("MS Office", "Microsoft", 149.99f, "http://store.com/office"));
 
+        user.addCart(cart1);
+
+        Order order = new Order(user, user.getCarts());
+        System.out.println(order);
+
+        System.out.printf("Date: %s\n", order.getCreatedAt());
+        System.out.printf("Order status: %s\n", order.getStatus());
+        order.setStatus("Paid");
+        System.out.printf("Order status: %s\n", order.getStatus());
+        System.out.printf("Total price: %.2f\n", order.getTotalPrice());
+        
+        order.pay();
 	}
 
 }
